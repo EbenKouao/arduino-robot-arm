@@ -14,7 +14,6 @@ int pinkie = 0; //Pinkie thumb
 int finger = 0; //finger thumb
 int thumb = 0; //Index thumb
 
-//LED ON PIN 3
 int pinkie_Data = A1;
 int finger_Data = A2;
 int thumb_Data = A3;
@@ -53,7 +52,7 @@ int pinkie_low = 0;
 bool bool_caliberate = false;
 
 //How often to send values to the Robotic Arm
-int response_time = 1000;
+int response_time = 100;
 
 void setup() {
   pinMode(3, OUTPUT);
@@ -77,8 +76,8 @@ void loop() {
   */
   pinMode(3, HIGH); //Use basic LED as visual indicator if value being sent
 
-  debug_flex(); //Debug Mode on/off
-
+  //debug_flex(); //Debug Mode on/off
+  //Serial.println("test");
   //get values for first mpu having address of 0x68
   GetMpuValue1(MPU1);
   //Serial.prinlnt("  ");
@@ -92,17 +91,16 @@ void loop() {
   //Print out a value, based on the change of the XYZ co-ordinates of 1st or 2nd MPU
 
   //Move Left
-  if ( x > 15 && x < 40 && y < 30) {
+  if ( x > 15 && x < 55 && y < 30) {
     Serial.print("L");
     delay(response_time);
   }
 
   //Move Right
-  if ( x < 310 && x > 270 && y < 30) {
+  if ( x < 310 && x > 270) {
     Serial.print("R");
     delay(response_time);
   }
-
 
   //Claw Up
   if ( y > 60 && y < 80) {
@@ -110,19 +108,19 @@ void loop() {
     delay(response_time);
   }
 
-  //Claw Down
-  if ( y < 310 && y > 280) {
+  //  //Claw Down
+  if ( y < 310 && y > 270) {
     Serial.print("U");
     delay(response_time);
   }
 
-  //Move right
-  if ( y2 > 40 && y2 < 65) {
+  //  //Move right
+  if ( y2 > 50 && y2 < 85) {
     Serial.print("C");
     delay(response_time);
   }
 
-  //Move left --- Right Hand
+  //  //Move left --- Right Hand
   if ( y2 < 160 && y2 > 120) {
     Serial.print("c");
     delay(response_time);
@@ -229,6 +227,7 @@ void GetMpuValue1(const int MPU) {
   //  Serial.print(z);
   //  Serial.print("\t");
   //  Serial.println("-----------------------------------------");
+
 
   //  Serial.print("AcX = ");
   //  Serial.print(AcX1);
